@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('angular-firebase-web-app.home', ['ngRoute', 'firebase', 'firebaseSimpleLogin'])
+angular.module('angular-firebase-web-app.home', ['ngRoute'])
 
 // Declared route 
 .config(['$routeProvider', function($routeProvider) {
