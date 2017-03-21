@@ -14,16 +14,24 @@
     <link rel="stylesheet" href="app.css">
     <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
-
 <body>
 
     <div ng-view></div>
 
-    <div>AngularJS and Firebase Web App: v<span app-version></span></div>
-
+    <!-- angular -->
     <script src="../bower_components/angular/angular.js"></script>
     <script src="../bower_components/angular-route/angular-route.js"></script>
+    
+    <!-- firebase -->
+    <script src="../bower_components/firebase/firebase.js"></script>
+    <script src="../bower_components/angularfire/dist/angularfire.js"></script>
+    <script src="../bower_components/firebase-simple-login/firebase-simple-login.js"></script>
+    
+    <!-- app -->
     <script src="app.js"></script>
+    
+    <!-- views -->
+    <script src="home/home.js"></script>
 
 </body>
 </html>
