@@ -1,0 +1,23 @@
+{
+  "name": "angular-firebase-web-app",
+  "description": "Creating a Web App From Scratch Using AngularJS and Firebase",
+  "main": "app.js",
+  "authors": [
+    "robson fagundes"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "angular",
+    "firebase",
+    "web",
+    "app"
+  ],
+  "homepage": "https://github.com/robsonfagundes/angular-firebase-web-app",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
