@@ -1,8 +1,7 @@
 'use strict';
 
-angular.module('angular-firebase-web-app.home', ['ngRoute'])
+angular.module('angularFirebaseWebApp.home', ['ngRoute', 'firebase'])
 
-// Declared route 
 .config(['$routeProvider', function($routeProvider) {
 	$routeProvider.when('/home', {
 		templateUrl: 'home/home.html',
@@ -10,33 +9,36 @@ angular.module('angular-firebase-web-app.home', ['ngRoute'])
 	});
 }])
 
-// Home controller
-.controller('HomeCtrl', [
-	'$scope',
-	'$firebase',
-	'$firebaseSimpleLogin',
+.controller('HomeCtrl', ['$scope', '$firebaseAuth', function($scope, $firebaseAuth) {
 
-	function($scope) {
+	// Initialize Firebase
+	var config = {
+		apiKey: "AIzaSyCWLr1J-XCNxwQmcC7rFH6pfJUZMLTxa4s",
+		authDomain: "angular-firebase-45775.firebaseapp.com",
+		databaseURL: "https://angular-firebase-45775.firebaseio.com",
+		storageBucket: "angular-firebase-45775.appspot.com",
+		messagingSenderId: "574471434764"
+	};
+	firebase.initializeApp(config);
 
-		var firebaseObj = new Firebase("https://angular-firebase-45775.firebaseio.com");	
-		var loginObj = $firebaseSimpleLogin(firebaseObj);
+	var firebaseObj = firebase.database().ref();
+	var loginObj = $firebaseAuth(firebaseObj);
 
-		$scope.SignIn = function(event) {
-			event.preventDefault(); // To prevent form refresh
-			var username = $scope.user.email;
-			var password = $scope.user.password;
-
-			loginObj.$login('password', {
-					email: username,
-					password: password
-				})
-				.then(function(user) {
-					// Success callback
-					console.log('Authentication successful');
-				}, function(error) {
-					// Failure callback
-					console.log('Authentication failure');
-				});
-		}
+	$scope.user = {};
+	$scope.SignIn = function(e) {
+		e.preventDefault();
+		var username = $scope.user.email;
+		var password = $scope.user.password;
+		loginObj.$login('password', {
+				email: username,
+				password: password
+			})
+			.then(function(user) {
+				//Success callback
+				console.log('Authentication successful');
+			}, function(error) {
+				//Failure callback
+				console.log('Authentication failure');
+			});
 	}
-]);
+}]);
