@@ -1,18 +1,18 @@
 {
-  "name": "angular-firebase-web-app",
-  "version": "1.0.0",
-  "description": "Creating a Web App From Scratch Using AngularJS and Firebase",
-  "main": "app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/robsonfagundes/angular-firebase-web-app"
-  },
-  "keywords": [
-    "angular", "firebase", "web", "app"
-  ],
-  "author": "robson fagundes",
-  "license": "MIT"
+    "name": "angular-firebase-web-app",
+    "version": "1.0.0",
+    "description": "Creating a Web App From Scratch Using AngularJS and Firebase",
+    "main": "app.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/robsonfagundes/angular-firebase-web-app"
+    },
+    "keywords": [
+        "angular", "firebase", "web", "app"
+    ],
+    "author": "robson fagundes",
+    "license": "MIT"
 }
