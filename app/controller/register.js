@@ -9,8 +9,6 @@
 
 			function($scope, $location, $firebaseAuth) {
 
-
-
 				// register new user
 				$scope.signUp = function() {
 

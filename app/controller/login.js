@@ -7,36 +7,61 @@
         ])
         .controller('LoginCtrl',
 
-            function($scope, $location, $firebaseAuth) {
+            function($scope, $location, $firebaseAuth, loggedUserServ) {
                 $scope.user = {};
 
-                let firebaseObj = firebase.database().ref();
-
+                // login
                 $scope.SignIn = function() {
 
                     let email = $scope.user.email;
                     let password = $scope.user.password;
 
-                    // signIn wWith email and password
-                    firebase.auth().signInWithEmailAndPassword(email, password)
-                        .then(function(users) {
+                    if (email && password) {
+                        // signIn wWith email and password
+                        firebase.auth().signInWithEmailAndPassword(email, password)
+                            .then(function(users) {
+                                // Sign-out successful.
+                                console.log('SignIn successful.');
+                                loggedUserServ.setUser(users.email);
+                                $location.path('/home');
+                            })
+                            .catch(function(error) {
+                                // Handle Errors here.
+                                let errorCode = error.code;
+                                let errorMessage = error.message;
+
+                                console.log(errorCode);
+                                $scope.regError = true;
+                                $scope.regErrorMessage = error.message;
+                            });
+                    }
+                }
+
+                // logout
+                $scope.Logout = function() {
+                    // logout to firebase
+                    firebase.auth().signOut()
+                        .then(function() {
                             // Sign-out successful.
-                            console.log('SignIn successful.');
-                            console.log(users.email)
-                            $location.path('/home');
+                            $location.path('/login');
                         })
                         .catch(function(error) {
-                            // Handle Errors here.
-                            let errorCode = error.code;
-                            let errorMessage = error.message;
-
-                            $scope.regError = true;
-                            $scope.regErrorMessage = error.message;    
-
-                            console.log(errorCode)
-                            console.log(errorMessage)
-
+                            // An error happened.
                         });
                 }
-            });
+
+            })
+        .service('loggedUserServ', function() {
+
+            let user = '';
+
+            return {
+                getUser: function() {
+                    return user;
+                },
+                setUser: function(value) {
+                    user = value;
+                }
+            };
+        });
 })();

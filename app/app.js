@@ -7,7 +7,8 @@
 			'ngRoute',
 			'angularFirebaseWebApp.LoginCtrl',
 			'angularFirebaseWebApp.RegisterCtrl',
-			'angularFirebaseWebApp.HomeCtrl'
+			'angularFirebaseWebApp.HomeCtrl',
+			'angularFirebaseWebApp.AddPostCtrl'
 
 		])
 		.config(['$routeProvider', '$httpProvider', function($routeProvider, $httpProvider) {
@@ -29,6 +30,11 @@
 				.when('/home', {
 					templateUrl: 'view/home.html',
 					controller: 'HomeCtrl'
+				})
+				// home
+				.when('/addPost', {
+					templateUrl: 'view/addPost.html',
+					controller: 'AddPostCtrl'
 				})
 				// default
 				.otherwise({

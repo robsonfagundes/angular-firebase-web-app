@@ -1,11 +1,31 @@
-
+ 
 <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="http://getbootstrap.com/examples/signin/signin.css" rel="stylesheet">
-<link href="../css/justified-nav.css" rel="stylesheet">
+<link href="../css/blog.css" rel="stylesheet">
 
-<div class="container" ng-controller="LoginCtrl">
-    <div class="jumbotron" style="padding-bottom: 0px;">
-        <h2>Home</h2>
-    </div>
+<div ng-controller="HomeCtrl">
+
+	<div class="blog-masthead">
+		<div class="container">
+			<nav class="blog-nav">
+				<a class="blog-nav-item active" href="#">Home</a>
+				<a class="blog-nav-item" href="#/addPost">Add Post</a>
+				<a class="blog-nav-item" href="#" ng-click="Logout()">Logout</a>
+			</nav>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="page-header">
+			<h1>AngularJS and Firebase App</h1>
+		</div>
+		<p class="lead">Welcome home <b>{{username}}</b> !!</p>
+	</div>
+
+	<footer class="footer">
+		<div class="container">
+			<p class="text-muted"></p>
+		</div>
+	</footer>
+
 </div>
 

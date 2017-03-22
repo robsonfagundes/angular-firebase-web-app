@@ -5,10 +5,11 @@
         .module('angularFirebaseWebApp.HomeCtrl', [
             'ngRoute', 'firebase'
         ])
-        .controller('HomeCtrl',
+        .controller('HomeCtrl', 
 
-            function($scope) {
+            function($scope, loggedUserServ) {
 
+                $scope.username = loggedUserServ.getUser();
                 
             });
 })();
