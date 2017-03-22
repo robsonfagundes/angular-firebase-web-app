@@ -6,13 +6,15 @@
 		.module('angularFirebaseWebApp', [
 			'ngRoute',
 			'angularFirebaseWebApp.LoginCtrl',
-			'angularFirebaseWebApp.RegisterCtrl'
+			'angularFirebaseWebApp.RegisterCtrl',
+			'angularFirebaseWebApp.HomeCtrl'
+
 		])
 		.config(['$routeProvider', '$httpProvider', function($routeProvider, $httpProvider) {
 
 			// routes 
 			$routeProvider
-
+				// login
 				.when('/login', {
 					templateUrl: 'view/login.html',
 					controller: 'LoginCtrl'
@@ -22,6 +24,11 @@
 				.when('/register', {
 					templateUrl: 'view/register.html',
 					controller: 'RegisterCtrl'
+				})
+				// home
+				.when('/home', {
+					templateUrl: 'view/home.html',
+					controller: 'HomeCtrl'
 				})
 				// default
 				.otherwise({

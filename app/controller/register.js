@@ -7,25 +7,40 @@
 		])
 		.controller('RegisterCtrl',
 
-			function($scope, $firebaseAuth) {
+			function($scope, $location, $firebaseAuth) {
+
+
 
 				// register new user
-				$scope.SignUp = function(event) {
-					event.preventDefault(); // To prevent form refresh
+				$scope.signUp = function() {
 
-					let email = $scope.user.email;
-					let password = $scope.user.password;
+					if (!$scope.regForm.$invalid) {
+						console.log('Valid form submission');
+						
+						let email = $scope.user.email;
+						let password = $scope.user.password;
 
-					firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
-						// Handle Errors here.
-						let errorCode = error.code;
-						let errorMessage = error.message;
+						firebase.auth().createUserWithEmailAndPassword(email, password)
+							.then(function() {
+								// Sign-out successful.
+								console.log('SignUp successful.');
+								$location.path('/home');
+							})
+							.catch(function(error) {
+								// Handle Errors here.
+								let errorCode = error.code;
+								let errorMessage = error.message;
 
-						console.log(errorCode)
-						console.log(errorMessage)
-					});
+								$scope.regError = true;
+								$scope.regErrorMessage = error.message;
+
+								console.log(errorCode)
+								console.log(errorMessage)
+							});
+					}
 
 				}
+
 
 			});
 

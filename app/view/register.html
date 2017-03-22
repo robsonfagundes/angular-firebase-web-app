@@ -4,21 +4,29 @@
 <link href="../css/justified-nav.css" rel="stylesheet">
 
 <div class="container" ng-controller="RegisterCtrl">
+
 	<div class="jumbotron" style="padding-bottom: 0px;">
 		<h2>Inform your email and password to register.</h2>
 	</div>
+
 	<form class="form-signin" name="regForm">
-		<div class="form-group">
-			<label>Email:</label>
+
+		<div class="form-group" ng-class="{ 'has-error' : regForm.email.$invalid }">
+			<label>Email</label>
 			<input type="email" name="email" class="form-control" ng-model="user.email">
-			<p ng-show="regForm.email.$invalid">Enter a valid email.</p>
+			<p class="help-block" ng-show="regForm.email.$invalid">Enter a valid email.</p>
 		</div>
-		<div class="form-group">
-			<label>Password:</label>
-			<input type="password" name="password" class="form-control" ng-model="user.password" ng-minlength="6">
-			<p ng-show="regForm.password.$error.minlength">Min password length is 6 characters.</p>
+		
+		<div class="form-group" ng-class="{ 'has-error' : regForm.password.$invalid }">
+			<label>Password</label>
+			<input type="password" name="password" class="form-control" ng-model="user.password" ng-minlength="8">
+			<p class="help-block" ng-show="regForm.password.$error.minlength">Min password length is 8 characters.</p>
+			<p style="color:red;" ng-show="regError">{{regErrorMessage}}</p>
 		</div>
-		<button type="button" class="btn btn-lg btn-primary btn-block">Register</button>
+
+		<button type="button" ng-click="signUp();" ng-disabled="!user.email || !user.password" class="btn btn-lg btn-primary btn-block">Register</button>
+		
 	</form>
+
 </div>
 

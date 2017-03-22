@@ -7,30 +7,36 @@
         ])
         .controller('LoginCtrl',
 
-            function($scope, $firebaseAuth, $location) {
-
+            function($scope, $location, $firebaseAuth) {
                 $scope.user = {};
-                $scope.SignIn = function(e) {
-                    e.preventDefault();
+
+                let firebaseObj = firebase.database().ref();
+
+                $scope.SignIn = function() {
 
                     let email = $scope.user.email;
                     let password = $scope.user.password;
 
                     // signIn wWith email and password
-                    firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
-                        // Handle Errors here.
-                        let errorCode = error.code;
-                        let errorMessage = error.message;
+                    firebase.auth().signInWithEmailAndPassword(email, password)
+                        .then(function(users) {
+                            // Sign-out successful.
+                            console.log('SignIn successful.');
+                            console.log(users.email)
+                            $location.path('/home');
+                        })
+                        .catch(function(error) {
+                            // Handle Errors here.
+                            let errorCode = error.code;
+                            let errorMessage = error.message;
 
-                        console.log(errorCode)
+                            $scope.regError = true;
+                            $scope.regErrorMessage = error.message;    
 
-                        // if user not found open register
-                        if (errorCode) {
-                            $location.path('/register')
-                        } else {
-                            console.log('Valid User!!!')
-                        }
-                    });
+                            console.log(errorCode)
+                            console.log(errorMessage)
+
+                        });
                 }
             });
 })();
