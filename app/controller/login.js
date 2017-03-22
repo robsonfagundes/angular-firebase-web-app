@@ -1,21 +1,36 @@
-'use strict';
+(function() {
+    'use strict';
 
-angular
+    angular
+        .module('angularFirebaseWebApp.LoginCtrl', [
+            'ngRoute', 'firebase'
+        ])
+        .controller('LoginCtrl',
 
-    .module('angularFirebaseWebApp.LoginCtrl', [
-        'ngRoute', 'firebase'
-    ])
-    .controller('LoginCtrl', ['$scope', '$firebaseAuth',
+            function($scope, $firebaseAuth, $location) {
 
-        function($scope, $firebaseAuth) {
+                $scope.user = {};
+                $scope.SignIn = function(e) {
+                    e.preventDefault();
 
-            $scope.user = {};
-            $scope.SignIn = function(e) {
-                e.preventDefault();
-                var username = $scope.user.email;
-                var password = $scope.user.password;
-                console.log(username)
-            }
-        }
+                    let email = $scope.user.email;
+                    let password = $scope.user.password;
 
-    ]);
+                    // signIn wWith email and password
+                    firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+                        // Handle Errors here.
+                        let errorCode = error.code;
+                        let errorMessage = error.message;
+
+                        console.log(errorCode)
+
+                        // if user not found open register
+                        if (errorCode) {
+                            $location.path('/register')
+                        } else {
+                            console.log('Valid User!!!')
+                        }
+                    });
+                }
+            });
+})();
