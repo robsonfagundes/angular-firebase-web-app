@@ -6,7 +6,8 @@
 <div class="container" ng-controller="RegisterCtrl">
 
 	<div class="jumbotron" style="padding-bottom: 0px;">
-		<h2>Inform your email and password to register.</h2>
+		<h2>SignUp</h2>
+		<p>Inform your email and password to register.</p>
 	</div>
 
 	<form class="form-signin" name="regForm">
@@ -25,7 +26,10 @@
 		</div>
 
 		<button type="button" ng-click="signUp();" ng-disabled="!user.email || !user.password" class="btn btn-lg btn-primary btn-block">Register</button>
-		
+	
+	    <label class="checkbox text-center">
+            <span class="text-center"> You have account? <a href="#/login"> Sign In</a></span>
+        </label>
 	</form>
 
 </div>

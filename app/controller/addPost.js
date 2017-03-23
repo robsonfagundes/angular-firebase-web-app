@@ -1,36 +1,31 @@
-(function() {
-	'use strict';
+'use strict';
 
-	angular
-		.module('angularFirebaseWebApp.AddPostCtrl', [
-			'ngRoute', 'firebase'
-		])
-		.controller('AddPostCtrl',
+angular
+	.module('angularFirebaseWebApp.AddPostCtrl', [
+		'ngRoute', 'firebase'
+	])
+	.controller('AddPostCtrl',
 
-			function($scope, $location, $firebase) {
+		function($scope, $location, $firebase, loggedUserServ) {
 
-				// Get a reference to the database service
-				let database = firebase.database();
+			// Add new article post 
+			$scope.AddPost = function() {
 
-				// Add new Post 
-				$scope.AddPost = function() {
-					let title = $scope.article.title;
-					let post = $scope.article.post;
-					writeUserData(title, post);
-				}
+				// write post on firebase
+				firebase.database().ref('Articles/')
+					.push({
+						title: $scope.article.title,
+						content: $scope.article.post,
+						emailId: loggedUserServ.getUser()
+					})
+					.then(function(ref) {
+						console.log(ref);
+						$location.path('/home');
+					}, function(error) {
+						console.log("Error:", error);
+					});
+			}
 
-			});
-
-		
-	// write post on firebase
-	function writeUserData(title, post) {
-		let userId = firebase.auth().currentUser.uid;
-		firebase.database().ref('posts/' + userId)
-			.set({
-				title: title,
-				post: post
-			});
-	}
+		});
 
 
-})();
