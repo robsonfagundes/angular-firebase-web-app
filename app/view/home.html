@@ -18,12 +18,16 @@
 		<div class="page-header">
 			<h1>AngularJS and Firebase Blog App</h1>
 		</div>
-		<p class="lead">Welcome home <b>{{username}}</b> !!</p>
+		<p class="lead">Welcome to blog app <b>{{username}}</b>!</p>
 
 		<div class="list-group" ng-repeat="article in articles">
-			<a href="#" class="list-group-item active">
+			<a href="#" onclick="return false;" class="list-group-item active">
 				<h4 class="list-group-item-heading">{{article.title}}</h4>
 				<p class="list-group-item-text">{{article.content}}</p>
+				<span class="pull-right">
+					<button class="btn btn-xs btn-info" ng-click="editPost(article.$id)" data-target="#editModal">EDIT</button>
+					<button class="btn btn-xs btn-warning">DELETE</button>
+				</span>
 			</a>
 		</div>
 	</div>
@@ -34,5 +38,35 @@
 		</div>
 	</footer>
 
+	<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+					</button>
+					<h4 class="modal-title" id="editModalLabel">Update Post</h4>
+				</div>
+				<div class="modal-body">
+					<form role="form">
+						<div class="form-group">
+							<label for="recipient-name" class="control-label">Title:</label>
+							<input type="text" class="form-control" ng-model="postToUpdate.title" id="recipient-name">
+						</div>
+						<div class="form-group">
+							<label for="message-text" class="control-label">Post:</label>
+							<textarea class="form-control" id="message-text" ng-model="postToUpdate.content"></textarea>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Publish</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 </div>
 
+
+ 
