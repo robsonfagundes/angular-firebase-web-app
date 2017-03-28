@@ -1,5 +1,15 @@
 'use strict';
 
+// Initialize Firebase
+var config = {
+	apiKey: "AIzaSyCWLr1J-XCNxwQmcC7rFH6pfJUZMLTxa4s",
+	authDomain: "angular-firebase-45775.firebaseapp.com",
+	databaseURL: "https://angular-firebase-45775.firebaseio.com",
+	storageBucket: "angular-firebase-45775.appspot.com",
+	messagingSenderId: "574471434764"
+};
+firebase.initializeApp(config);
+
 // Declare app level module which depends on views, and components
 angular
 	.module('angularFirebaseWebApp', [
@@ -14,14 +24,14 @@ angular
 
 		// routes 
 		$routeProvider
-			// login
+		// login
 			.when('/login', {
-				templateUrl: 'view/login.html',
-				controller: 'LoginCtrl'
-			})
+			templateUrl: 'view/login.html',
+			controller: 'LoginCtrl'
+		})
 
-			// register
-			.when('/register', {
+		// register
+		.when('/register', {
 				templateUrl: 'view/register.html',
 				controller: 'RegisterCtrl'
 			})

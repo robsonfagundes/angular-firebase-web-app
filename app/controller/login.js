@@ -6,7 +6,7 @@ angular
     ])
     .controller('LoginCtrl',
 
-        function($scope, $location, $firebaseAuth, loggedUserServ) {
+        function($scope, $timeout, $location, $firebaseAuth, loggedUserServ) {
             $scope.user = {};
 
             // login
@@ -20,9 +20,11 @@ angular
                     firebase.auth().signInWithEmailAndPassword(email, password)
                         .then(function(users) {
                             // Sign-out successful.
-                            console.log('SignIn successful.');
-                            loggedUserServ.setUser(users.email);
-                            $location.path('/home');
+                            $timeout(function() {
+                                console.log('SignIn successful.');
+                                loggedUserServ.setUser(users.email);
+                                $location.path('/home');
+                            });
                         })
                         .catch(function(error) {
                             // Handle Errors here.

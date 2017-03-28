@@ -28,3 +28,7 @@
   content: "";
   padding: 0;
 }
+
+div.modal div.modal-backdrop {
+    z-index: 0;
+}

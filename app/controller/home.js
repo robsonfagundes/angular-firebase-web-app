@@ -6,47 +6,34 @@ angular
 	])
 	.controller('HomeCtrl',
 
-		function($scope, $timeout, $firebaseArray, $firebaseObject, loggedUserServ) {
+		function($scope, $firebaseArray, $firebaseObject, loggedUserServ) {
 
 			// show logged user
 			$scope.username = loggedUserServ.getUser();
-			$scope.articles = {};
 
-			// database ref
-			let articlesRef = firebase.database().ref('Articles');
+			// List all articles with angularfire
+			let articlesRef = firebase.database().ref('Articles/'); // database ref
+			$scope.articles = $firebaseArray(articlesRef);
 
-			// List all articles
-			articlesRef.on("child_added",
-				function(article) {
-					//Running the code in $timeout ensures that Angular updates any affected views afterwards.
-					$timeout(function() {
-						//$firebaseArray will automatically synchronize changes to your template
-						$scope.articles = $firebaseArray(articlesRef);
-					});
-				},
-				function(errorObject) {
-					console.log("The read article failed: " + errorObject.code);
-				});
-
-
-			// edit article post 
-			$scope.editPost = function(id) {
-				console.log(id);
-
-				let articlesRef = firebase.database().ref('Articles');
-
-				articlesRef.child(id).once('value').then(
-					function(articleToUpdate) {
-						$timeout(function() {
-							let post = articleToUpdate.val();
-							$scope.postToUpdate = post;
-							console.log($scope.postToUpdate)
-						});
-					});
-
-
-
+			// Show article to edit with angularfire
+			$scope.showToEditArticle = function(id) {
+				let articleRef = firebase.database().ref('Articles/').child(id); // database ref
+				$scope.articleToUpdate = $firebaseObject(articleRef);
 				$('#editModal').modal(); // triggers the modal pop up
 			}
 
+			// Update article with angularfire
+			$scope.updateArticle = function() {
+				$scope.articleToUpdate.$save({
+						title: $scope.articleToUpdate.title,
+						content: $scope.articleToUpdate.post,
+						emailId: loggedUserServ.getUser()
+					})
+					// the promisse is optional
+					.then(function(ref) {
+						$('#editModal').modal('hide');
+					}, function(error) {
+						console.log("Error:", error);
+					});
+			}
 		});

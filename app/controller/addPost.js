@@ -6,10 +6,10 @@ angular
 	])
 	.controller('AddPostCtrl',
 
-		function($scope, $location, $firebase, loggedUserServ) {
+		function($scope, $timeout, $location, $firebase, loggedUserServ) {
 
 			// Add new article post 
-			$scope.AddPost = function() {
+			$scope.addPost = function() {
 
 				// write post on firebase
 				firebase.database().ref('Articles/')
@@ -19,11 +19,14 @@ angular
 						emailId: loggedUserServ.getUser()
 					})
 					.then(function(ref) {
-						console.log(ref);
-						$location.path('/home');
+						$timeout(function() {
+							$location.path('/home');
+						});
 					}, function(error) {
 						console.log("Error:", error);
 					});
+
+
 			}
 
 
