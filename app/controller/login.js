@@ -23,7 +23,7 @@ angular
                             $timeout(function() {
                                 console.log('SignIn successful.');
                                 loggedUserServ.setUser(users.email);
-                                $location.path('/home');
+                                $location.path('/articles');
                             });
                         })
                         .catch(function(error) {

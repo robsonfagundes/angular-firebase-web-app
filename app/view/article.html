@@ -2,13 +2,13 @@
 <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="../css/blog.css" rel="stylesheet">
 
-<div ng-controller="HomeCtrl">
+<div ng-controller="ArticleCtrl">
 
 	<div class="blog-masthead">
 		<div class="container">
 			<nav class="blog-nav">
 				<a class="blog-nav-item active" href="#/home">Home</a>
-				<a class="blog-nav-item" href="#/addPost">Add Post</a>
+				<a class="blog-nav-item" href="#/addArticle">Add Article</a>
 				<a class="blog-nav-item" href="#" ng-click="Logout()">Logout</a>
 			</nav>
 		</div>
@@ -25,8 +25,12 @@
 				<h4 class="list-group-item-heading">{{article.title}}</h4>
 				<p class="list-group-item-text">{{article.content}}</p>
 				<span class="pull-right">
-					<button class="btn btn-xs btn-info" ng-click="showToEditArticle(article.$id)" data-target="#editModal">EDIT</button>
-					<button class="btn btn-xs btn-warning" ng-click="articles.$remove(article)">DELETE</button>
+					<button class="btn btn-xs btn-info active" ng-click="showToEditArticle(article.$id)" data-target="#editModal">
+						<span class="glyphicon glyphicon-pencil"></span> EDIT
+					</button>
+					<button class="btn btn-xs btn-danger" ng-click="showToRemoveArticle(article.$id)" data-target="#deleteModal" >
+						<span class="glyphicon glyphicon-trash"></span>	DELETE
+					</button>
 				</span>
 			</a>
 		</div>
@@ -44,7 +48,7 @@
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
 					</button>
-					<h4 class="modal-title" id="editModalLabel">Update Article</h4>
+					<h4 class="modal-title" id="editModalLabel"><span class="glyphicon glyphicon-pencil"></span> Update Article</h4>
 				</div>
 				<div class="modal-body">
 					<form role="form">
@@ -59,8 +63,12 @@
 					</form>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary" ng-click="updateArticle()">Publish</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">
+						<span class="glyphicon glyphicon-remove"></span> Close
+					</button>
+					<button type="button" class="btn btn-primary" ng-click="updateArticle()">
+						<span class="glyphicon glyphicon-ok"></span> Publish
+					</button>
 				</div>
 			</div>
 		</div>
@@ -70,12 +78,15 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header" style="text-align:center;">
-					<h4 class="modal-title" style="color:red;" id="deleteModalLabel">You are going to Delete this article forever !</h4>
+					<h4 class="modal-title" id="deleteModalLabel"> You are going to delete this <br> article forever!</h4>
 				</div>
-
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-primary" ng-click="update()">Delete</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">
+						<span class="glyphicon glyphicon-remove"></span> Cancel
+					</button>
+					<button type="button" class="btn btn-danger" ng-click="removeArticle()">
+						<span class="glyphicon glyphicon-trash"></span>	Delete
+					</button>
 				</div>
 			</div>
 		</div>

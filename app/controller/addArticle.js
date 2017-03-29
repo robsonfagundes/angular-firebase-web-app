@@ -1,10 +1,10 @@
 'use strict';
 
 angular
-	.module('angularFirebaseWebApp.AddPostCtrl', [
+	.module('angularFirebaseWebApp.AddArticleCtrl', [
 		'ngRoute', 'firebase'
 	])
-	.controller('AddPostCtrl',
+	.controller('AddArticleCtrl',
 
 		function($scope, $timeout, $location, $firebase, loggedUserServ) {
 
@@ -20,15 +20,10 @@ angular
 					})
 					.then(function(ref) {
 						$timeout(function() {
-							$location.path('/home');
+							$location.path('/articles');
 						});
 					}, function(error) {
 						console.log("Error:", error);
 					});
-
-
 			}
-
-
-
 		});

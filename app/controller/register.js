@@ -22,7 +22,7 @@ angular
 							$timeout(function() {
 								// Sign-out successful.
 								console.log('SignUp successful.');
-								$location.path('/home');
+								$location.path('/article');
 							});
 						})
 						.catch(function(error) {

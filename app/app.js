@@ -16,8 +16,8 @@ angular
 		'ngRoute',
 		'angularFirebaseWebApp.LoginCtrl',
 		'angularFirebaseWebApp.RegisterCtrl',
-		'angularFirebaseWebApp.HomeCtrl',
-		'angularFirebaseWebApp.AddPostCtrl'
+		'angularFirebaseWebApp.ArticleCtrl',
+		'angularFirebaseWebApp.AddArticleCtrl'
 
 	])
 	.config(['$routeProvider', '$httpProvider', function($routeProvider, $httpProvider) {
@@ -35,15 +35,15 @@ angular
 				templateUrl: 'view/register.html',
 				controller: 'RegisterCtrl'
 			})
-			// home
-			.when('/home', {
-				templateUrl: 'view/home.html',
-				controller: 'HomeCtrl'
+			// articles
+			.when('/articles', {
+				templateUrl: 'view/article.html',
+				controller: 'ArticleCtrl'
 			})
-			// home
-			.when('/addPost', {
-				templateUrl: 'view/addPost.html',
-				controller: 'AddPostCtrl'
+			// add article
+			.when('/addArticle', {
+				templateUrl: 'view/addArticle.html',
+				controller: 'AddArticleCtrl'
 			})
 			// default
 			.otherwise({

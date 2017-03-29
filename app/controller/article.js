@@ -1,10 +1,10 @@
 'use strict';
 
 angular
-	.module('angularFirebaseWebApp.HomeCtrl', [
+	.module('angularFirebaseWebApp.ArticleCtrl', [
 		'ngRoute', 'firebase'
 	])
-	.controller('HomeCtrl',
+	.controller('ArticleCtrl',
 
 		function($scope, $firebaseArray, $firebaseObject, loggedUserServ) {
 
@@ -22,6 +22,13 @@ angular
 				$('#editModal').modal(); // triggers the modal pop up
 			}
 
+			// Remove article on firebase with angularfire
+			$scope.showToRemoveArticle = function(id) {
+				let articleRef = firebase.database().ref('Articles/').child(id); // database ref
+				$scope.articleToDelete = $firebaseObject(articleRef);
+				$('#deleteModal').modal();
+			}
+
 			// Update article with angularfire
 			$scope.updateArticle = function() {
 				$scope.articleToUpdate.$save({
@@ -36,4 +43,15 @@ angular
 						console.log("Error:", error);
 					});
 			}
+
+			// Remove article with angularfire
+			$scope.removeArticle = function() {
+				$scope.articleToDelete.$remove($scope.articleToDelete.$id)
+					.then(function(ref) {
+						$('#deleteModal').modal('hide');
+					}, function(error) {
+						console.log("Error:", error);
+					});
+			}
+
 		});
