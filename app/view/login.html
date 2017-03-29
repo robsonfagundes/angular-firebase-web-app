@@ -10,7 +10,7 @@
         <p>Welcome to AngularJS and Firebase Web Aplication.</p>
     </div>
 
-    <form  ng-submit="SignIn()" class="form-signin" name="signinForm" role="form">
+    <form class="form-signin" name="signinForm" role="form">
     
         <div class="form-group" ng-class="{ 'has-error' : signinForm.email.$invalid }">
             <label>Email</label>
@@ -25,8 +25,9 @@
             <p style="color:red;" ng-show="regError">{{regErrorMessage}}</p>
         </div>
     
-        <button type="submit" ng-disabled="!user.email || !user.password" class="btn btn-lg btn-primary btn-block">SignIn</button>
-    
+        <button ladda-loading="login.loading" data-style="expand-right" ng-disabled="!user.email || !user.password" type="button" ng-click="SignIn($event)" class="btn btn-lg segoe-ui-light ladda-button btn-primary btn-block"><span class="ladda-label">Sign In</span>
+        </button>
+
         <label class="checkbox text-center">
             <span class="text-center"> You don't have account? <a href="#/register"> Sign Up</a></span>
         </label>

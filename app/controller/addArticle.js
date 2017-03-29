@@ -8,6 +8,8 @@ angular
 
 		function($scope, $timeout, $location, $firebase, loggedUserServ) {
 
+			let user = loggedUserServ.getUser();
+
 			// Add new article post 
 			$scope.addPost = function() {
 
@@ -16,7 +18,8 @@ angular
 					.push({
 						title: $scope.article.title,
 						content: $scope.article.post,
-						emailId: loggedUserServ.getUser()
+						emailId: user,
+						'.priority': user
 					})
 					.then(function(ref) {
 						$timeout(function() {

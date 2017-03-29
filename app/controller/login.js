@@ -9,8 +9,14 @@ angular
         function($scope, $timeout, $location, $firebaseAuth, loggedUserServ) {
             $scope.user = {};
 
+            // show the loading indicator
+            var login = {};
+            $scope.login = login;
+
             // login
             $scope.SignIn = function() {
+
+                login.loading = true;
 
                 let email = $scope.user.email;
                 let password = $scope.user.password;
@@ -21,19 +27,19 @@ angular
                         .then(function(users) {
                             // Sign-out successful.
                             $timeout(function() {
-                                console.log('SignIn successful.');
                                 loggedUserServ.setUser(users.email);
                                 $location.path('/articles');
                             });
+                            login.loading = false;
                         })
                         .catch(function(error) {
                             // Handle Errors here.
-                            let errorCode = error.code;
-                            let errorMessage = error.message;
-
-                            console.log(errorCode);
-                            $scope.regError = true;
-                            $scope.regErrorMessage = error.message;
+                            $timeout(function() {
+                                let errorMessage = error.message;
+                                $scope.regError = true;
+                                $scope.regErrorMessage = error.message;
+                            });
+                            login.loading = false;
                         });
                 }
             }
@@ -53,9 +59,7 @@ angular
 
         })
     .service('loggedUserServ', function() {
-
         let user = '';
-
         return {
             getUser: function() {
                 return user;
@@ -64,4 +68,23 @@ angular
                 user = value;
             }
         };
-    });
+    })
+    .directive('laddaLoading', [
+        function() {
+            return {
+                link: function(scope, element, attrs) {
+                    var Ladda = window.Ladda;
+                    var ladda = Ladda.create(element[0]);
+                    // Watching login.loading for change
+                    scope.$watch(attrs.laddaLoading, function(newVal, oldVal) {
+                        // Based on the value start and stop the indicator
+                        if (newVal) {
+                            ladda.start();
+                        } else {
+                            ladda.stop();
+                        }
+                    });
+                }
+            };
+        }
+    ]);

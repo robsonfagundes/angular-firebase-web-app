@@ -8,11 +8,12 @@ angular
 
 		function($scope, $firebaseArray, $firebaseObject, loggedUserServ) {
 
+
 			// show logged user
 			$scope.username = loggedUserServ.getUser();
 
 			// List all articles with angularfire
-			let articlesRef = firebase.database().ref('Articles/'); // database ref
+			let articlesRef = firebase.database().ref('Articles/').startAt($scope.username).endAt($scope.username); // database ref
 			$scope.articles = $firebaseArray(articlesRef);
 
 			// Show article to edit with angularfire
