@@ -2,6 +2,7 @@
 
 var app = angular.module('angularFirebaseWebApp');
 
+// login controller 
 app.controller('LoginCtrl',
 
     function($scope, $timeout, $location, $firebaseAuth, loggedUserServ) {

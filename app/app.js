@@ -15,6 +15,17 @@ var app = angular.module('angularFirebaseWebApp', [
 	'ngRoute', 'firebase'
 ]);
 
+// We can catch the error thrown when the $requireSignIn promise is rejected
+// and redirect the user back to the home page
+app.run(["$rootScope", "$location", function($rootScope, $location) {
+	$rootScope.$on("$routeChangeError", function(event, next, previous, error) {
+		if (error === "AUTH_REQUIRED") {
+			$location.path("/login");
+		}
+	});
+}]);
+
+// Routes
 app.config(['$routeProvider', '$httpProvider', '$locationProvider',
 	function($routeProvider, $httpProvider, $locationProvider) {
 
@@ -33,7 +44,12 @@ app.config(['$routeProvider', '$httpProvider', '$locationProvider',
 			// articles
 			.when('/articles', {
 				templateUrl: 'view/article.html',
-				controller: 'ArticleCtrl'
+				controller: 'ArticleCtrl',
+				resolve: {
+					"currentAuth": ["Auth", function(Auth) {
+						return Auth.$waitForSignIn();
+					}]
+				}
 			})
 			// add new article
 			.when('/newarticle', {
@@ -51,5 +67,12 @@ app.config(['$routeProvider', '$httpProvider', '$locationProvider',
 
 		// Previne hash bang hell.
 		$locationProvider.hashPrefix('');
+	}
+]);
+
+// Auth
+app.factory("Auth", ["$firebaseAuth",
+	function($firebaseAuth) {
+		return $firebaseAuth();
 	}
 ]);
