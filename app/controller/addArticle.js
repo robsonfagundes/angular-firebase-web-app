@@ -1,9 +1,7 @@
 'use strict';
 
 angular
-	.module('angularFirebaseWebApp.AddArticleCtrl', [
-		'ngRoute', 'firebase'
-	])
+	.module('angularFirebaseWebApp')
 	.controller('AddArticleCtrl',
 
 		function($scope, $timeout, $location, $firebase, loggedUserServ) {

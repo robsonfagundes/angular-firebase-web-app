@@ -11,27 +11,22 @@ var config = {
 firebase.initializeApp(config);
 
 // Declare app level module which depends on views, and components
-angular
-	.module('angularFirebaseWebApp', [
-		'ngRoute',
-		'angularFirebaseWebApp.LoginCtrl',
-		'angularFirebaseWebApp.RegisterCtrl',
-		'angularFirebaseWebApp.ArticleCtrl',
-		'angularFirebaseWebApp.AddArticleCtrl'
+var app = angular.module('angularFirebaseWebApp', [
+	'ngRoute', 'firebase'
+]);
 
-	])
-	.config(['$routeProvider', '$httpProvider', function($routeProvider, $httpProvider) {
+app.config(['$routeProvider', '$httpProvider', '$locationProvider',
+	function($routeProvider, $httpProvider, $locationProvider) {
 
-		// routes 
 		$routeProvider
+
 		// login
 			.when('/login', {
-			templateUrl: 'view/login.html',
-			controller: 'LoginCtrl'
-		})
-
-		// register
-		.when('/register', {
+				templateUrl: 'view/login.html',
+				controller: 'LoginCtrl'
+			})
+			// register
+			.when('/register', {
 				templateUrl: 'view/register.html',
 				controller: 'RegisterCtrl'
 			})
@@ -40,8 +35,8 @@ angular
 				templateUrl: 'view/article.html',
 				controller: 'ArticleCtrl'
 			})
-			// add article
-			.when('/addArticle', {
+			// add new article
+			.when('/newarticle', {
 				templateUrl: 'view/addArticle.html',
 				controller: 'AddArticleCtrl'
 			})
@@ -49,10 +44,12 @@ angular
 			.otherwise({
 				redirectTo: '/login'
 			}),
-
 			// Enable cross domain calls
 			$httpProvider.defaults.useXDomain = true,
-
 			//Remove the header used to identify ajax call  that would prevent CORS from working
 			delete $httpProvider.defaults.headers.common['X-Requested-With'];
-	}]);
+
+		// Previne hash bang hell.
+		$locationProvider.hashPrefix('');
+	}
+]);

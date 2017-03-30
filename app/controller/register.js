@@ -1,9 +1,7 @@
 'use strict';
 
 angular
-	.module('angularFirebaseWebApp.RegisterCtrl', [
-		'ngRoute', 'firebase'
-	])
+	.module('angularFirebaseWebApp')
 	.controller('RegisterCtrl',
 
 		function($scope, $timeout, $location, $firebaseAuth) {
