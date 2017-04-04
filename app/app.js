@@ -12,7 +12,7 @@ firebase.initializeApp(config);
 
 // Declare app level module which depends on views, and components
 var app = angular.module('angularFirebaseWebApp', [
-	'ngRoute', 'firebase'
+	'ngRoute', 'firebase' 
 ]);
 
 // We can catch the error thrown when the $requireSignIn promise is rejected
@@ -31,7 +31,7 @@ app.config(['$routeProvider', '$httpProvider', '$locationProvider',
 
 		$routeProvider
 
-		// login
+			// login
 			.when('/login', {
 				templateUrl: 'view/login.html',
 				controller: 'LoginCtrl'
@@ -46,7 +46,7 @@ app.config(['$routeProvider', '$httpProvider', '$locationProvider',
 				templateUrl: 'view/article.html',
 				controller: 'ArticleCtrl',
 				resolve: {
-					"currentAuth": ["Auth", function(Auth) {
+					'currentAuth': ['Auth', function(Auth) {
 						return Auth.$waitForSignIn();
 					}]
 				}
@@ -71,7 +71,7 @@ app.config(['$routeProvider', '$httpProvider', '$locationProvider',
 ]);
 
 // Auth
-app.factory("Auth", ["$firebaseAuth",
+app.factory('Auth', ['$firebaseAuth',
 	function($firebaseAuth) {
 		return $firebaseAuth();
 	}

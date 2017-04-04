@@ -3,7 +3,7 @@
 var app = angular.module('angularFirebaseWebApp');
 
 // article controller 
-app.controller('ArticleCtrl', 
+app.controller('ArticleCtrl',
 
 	function($scope, $firebaseArray, $firebaseObject, loggedUserServ) {
 
